@@ -1,0 +1,29 @@
+{
+  "name": "boost-js-objects-storage",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node src/generate_large_json.mjs",
+    "redis:up": "docker run -p 6379:6379 --name redis redis:alpine",
+    "redis:down": "docker container stop redis && docker container rm redis",
+    "step_1": "concurrently 'node src/step_1.mjs' 'npm run autocannon -- -a 1 -c 1' --kill-others",
+    "step_2": "concurrently 'node src/step_2.mjs' 'npm run autocannon -- -a 1 -c 1' --kill-others",
+    "step_3:flatten": "concurrently 'node src/step_3_flatten.mjs' 'npm run autocannon' --kill-others",
+    "step_3": "concurrently 'node src/step_3.mjs' 'npm run autocannon' --kill-others",
+    "step_4": "concurrently 'node src/step_4.mjs' 'npm run autocannon' --kill-others",
+    "autocannon": "autocannon -m POST 'http://localhost:3000'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@fastify/redis": "^6.1.1",
+    "autocannon": "^7.12.0",
+    "concurrently": "^8.2.0",
+    "fastify": "^4.21.0",
+    "flat": "^5.0.2",
+    "msgpackr": "^1.9.7"
+  }
+}
