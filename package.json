@@ -24,6 +24,6 @@
     "concurrently": "^8.2.0",
     "fastify": "^4.21.0",
     "flat": "^5.0.2",
-    "msgpackr": "^1.9.7"
+    "msgpackr": "^1.10.1"
   }
 }
